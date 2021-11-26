@@ -1,4 +1,7 @@
-﻿using System;
+﻿
+using System.Linq;
+using System.Collections.Generic;
+using System;
 
 namespace dotnetcore
 {
@@ -27,10 +30,35 @@ namespace dotnetcore
         // - Utilizar Classe Pessoa
         static void Main(string[] args)
         {
-            Console.WriteLine("Iniciando Programa");
+            var xNomeAlunoA = "Jonas";
+            var xNomeAlunoB = "Sueli";
 
-            var xNotasZuqui = new int[] { 7, 6, 5, 3 };
-            var xNotasBronza = new int[] { 8, 9, 10, 8 };
+            var xNotasAlunoA = new List<float>() {8, 6, 10, 7};
+            var xNotasAlunoB = new List<float>() {4, 6, 6, 9};
+
+            var xMediaAlunoA = CalcularMedia(xNotasAlunoA);
+            Console.WriteLine("Com a Media: " + xMediaAlunoA);
+            PassouOuReprovou(xMediaAlunoA, xNomeAlunoA);
+
+            var xMediaAlunoB = CalcularMedia(xNotasAlunoB);
+            Console.WriteLine("Com a Media: " + xMediaAlunoB);
+            PassouOuReprovou(xMediaAlunoB, xNomeAlunoB);
+        }
+
+        
+
+        private static float CalcularMedia(List<float> Notas)
+        {
+            return Notas.Average();
+        }
+        private static void PassouOuReprovou(float Media, string NomeAluno)
+        {
+            if (Media >= 7)
+            {
+                Console.WriteLine(NomeAluno + " Passou de ano");
+            }else{
+                Console.WriteLine(NomeAluno + " Reprovou de ano");
+            }
         }
     }
 }
