@@ -5,60 +5,49 @@ using System;
 
 namespace dotnetcore
 {
+    public class Pessoa{
+        public Pessoa(string pNome, int pIdade)
+        {
+            Nome = pNome;
+            Idade = pIdade;
+        }
+        public string Nome { get; set; }
+        public int Idade { get; set; }
+    }
+
     class Program
     {
-        // Exercício 1:
-        // - Fazer a média de notas dos dois alunos (Zuqui, Bronza) e imprimir no Console.WriteLine();
-        // - Imprimir no console para cada aluno
-        //      - Nome do aluno
-        //      - Caso média maior ou igual 7:
-        //          - Passou no ano letivo
-        //          - Não passou no ano letivo
-        // Requisítos:
-        // - Criar um método "CalcularMedia", onde a entrada de parâmetros seja as notas e o retorno seja a média em float
-        // - Utilizar For ou Foreach
-
 
         // Exercício 2:
         // - Fazer um programa que cadastre pessoas, contendo nome e idade;
         // - Imprimir a media de idade das pessoas
         // - Imprimir o nome e idade da pessoa mais velha
         // - Imprimir o nome e idade da pessoa mais nova
-        // - Imprimir a quantidade de pessoas com maior idade
+        // - Imprimir a quantidade de pessoas com maioridade
         // Requisítos:
         // - Utilizar List (Avg, Max, Min, Where)
         // - Utilizar Classe Pessoa
         static void Main(string[] args)
         {
-            var xNomeAlunoA = "Jonas";
-            var xNomeAlunoB = "Sueli";
+            var xPessoas = new List<Pessoa>() {
+                new Pessoa("Violet Evergarden", 15),
+                new Pessoa("Aelin Galathynius", 19),
+                new Pessoa("John Marston", 40),
+                new Pessoa("Hunter", 20),
+                };
+            
+            var xMedia = xPessoas.Average(p => p.Idade);
+            Console.WriteLine("A média das idades é: " + xMedia);
 
-            var xNotasAlunoA = new List<float>() {8, 6, 10, 7};
-            var xNotasAlunoB = new List<float>() {4, 6, 6, 9};
+            var xMaisNovo = xPessoas.OrderBy(p => p.Idade).First();
+            Console.WriteLine("A pessoa mais nova é: " + xMaisNovo.Nome + " Com: " + xMaisNovo.Idade + " anos");
 
-            var xMediaAlunoA = CalcularMedia(xNotasAlunoA);
-            Console.WriteLine("Com a Media: " + xMediaAlunoA);
-            PassouOuReprovou(xMediaAlunoA, xNomeAlunoA);
+            var xMaisVelho = xPessoas.OrderByDescending(p => p.Idade).First();
+            Console.WriteLine("A pessoa mais velha é: " + xMaisVelho.Nome + " Com: " + xMaisVelho.Idade + " anos");
 
-            var xMediaAlunoB = CalcularMedia(xNotasAlunoB);
-            Console.WriteLine("Com a Media: " + xMediaAlunoB);
-            PassouOuReprovou(xMediaAlunoB, xNomeAlunoB);
+            var xNumeroDeMaioresDeIdade = xPessoas.Where(p => p.Idade >= 18);
+            Console.WriteLine("O número de maiores de idade é: " + xNumeroDeMaioresDeIdade.Count());
         }
 
-        
-
-        private static float CalcularMedia(List<float> Notas)
-        {
-            return Notas.Average();
-        }
-        private static void PassouOuReprovou(float Media, string NomeAluno)
-        {
-            if (Media >= 7)
-            {
-                Console.WriteLine(NomeAluno + " Passou de ano");
-            }else{
-                Console.WriteLine(NomeAluno + " Reprovou de ano");
-            }
-        }
     }
 }
